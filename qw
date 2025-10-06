@@ -1,0 +1,37 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+def xy(cesta):
+    df = pd.read_excel(cesta)
+    df.columns = df.columns.str.strip()
+    return df
+
+
+df1 = xy(r"C:\Users\Zdeněk Beránek\Desktop\phytontabulky\tabulka 1.xlsx")
+df2 = xy(r"C:\Users\Zdeněk Beránek\Desktop\phytontabulky\tabulka 2.xlsx")
+
+
+fig, ax1 = plt.subplots(figsize=(12, 6))
+
+
+color1 = "tab:blue"
+ax1.set_xlabel("Měsíc", fontsize=12)
+ax1.set_ylabel("Hrubá mzda (tis. Kč)", color=color1, fontsize=12)
+ax1.plot(df1["Měsíc"], df1["Hodnota"], color=color1, linewidth=2.5, marker='o', label="Hrubá mzda")
+ax1.tick_params(axis='y', labelcolor=color1)
+
+
+plt.xticks(rotation=45, fontsize=11)
+
+
+ax2 = ax1.twinx()
+color2 = "tab:red"
+ax2.set_ylabel("Inflace (%)", color=color2, fontsize=12)
+ax2.plot(df2["Měsíc"], df2["Hodnota"], color=color2, linewidth=2.5, marker='o', label="Inflace")
+ax2.tick_params(axis='y', labelcolor=color2)
+
+
+plt.title("Porovnání Hrubé mzdy a Míry inflace v ČR", fontsize=14, fontweight="bold")
+fig.tight_layout()
+plt.grid(True)
+plt.show()
