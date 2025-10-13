@@ -1,0 +1,95 @@
+# predikce_hdp.py
+# -------------------------------
+# Projekt: Predikce vývoje HDP
+# Autor: Ondřej Beránek
+# Popis: Skript pro analýzu a predikci HDP pomocí Pythonu
+# -------------------------------
+
+# 📦 1. Import potřebných knihoven
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+import numpy as np
+
+# 📂 2. Načtení dat
+# (Zatím testovací data – později můžeš nahradit reálnými daty z ČSÚ nebo OECD)
+data = {
+    "rok": [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+    "hdp": [4500, 4700, 4950, 5200, 5400, 5100, 5450, 5600, 5800]
+}
+
+df = pd.DataFrame(data)
+
+# 🧮 3. Příprava dat pro model
+X = df["rok"].values.reshape(-1, 1)
+y = df["hdp"].values
+
+model = LinearRegression()
+model.fit(X, y)
+
+# 🔮 4. Predikce na další roky
+future_years = np.a# predikce_hdp.py
+# -------------------------------
+# Projekt: Predikce vývoje HDP
+# Autor: Ondřej Beránek
+# Popis: Skript pro analýzu a predikci HDP pomocí Pythonu
+# -------------------------------
+
+# 📦 1. Import potřebných knihoven
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.linear_model import LinearRegression
+import numpy as np
+
+# 📂 2. Načtení dat
+# (Zatím testovací data – později můžeš nahradit reálnými daty z ČSÚ nebo OECD)
+data = {
+    "rok": [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+    "hdp": [4500, 4700, 4950, 5200, 5400, 5100, 5450, 5600, 5800]
+}
+
+df = pd.DataFrame(data)
+
+# 🧮 3. Příprava dat pro model
+X = df["rok"].values.reshape(-1, 1)
+y = df["hdp"].values
+
+model = LinearRegression()
+model.fit(X, y)
+
+# 🔮 4. Predikce na další roky
+future_years = np.array([2024, 2025, 2026, 2027, 2028]).reshape(-1, 1)
+predictions = model.predict(future_years)
+
+# 📊 5. Vizualizace
+plt.figure(figsize=(8,5))
+plt.scatter(df["rok"], df["hdp"], label="Skutečné hodnoty")
+plt.plot(future_years, predictions, color="red", linestyle="--", label="Predikce")
+plt.title("Predikce HDP ČR")
+plt.xlabel("Rok")
+plt.ylabel("HDP (mld. Kč)")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# 📝 6. Výpis výsledků do konzole
+for rok, pred in zip(future_years.flatten(), predictions):
+    print(f"Odhad HDP pro rok {rok}: {pred:.2f} mld. Kč")
+rray([2024, 2025, 2026, 2027, 2028]).reshape(-1, 1)
+predictions = model.predict(future_years)
+
+# 📊 5. Vizualizace
+plt.figure(figsize=(8,5))
+plt.scatter(df["rok"], df["hdp"], label="Skutečné hodnoty")
+plt.plot(future_years, predictions, color="red", linestyle="--", label="Predikce")
+plt.title("Predikce HDP ČR")
+plt.xlabel("Rok")
+plt.ylabel("HDP (mld. Kč)")
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# 📝 6. Výpis výsledků do konzole
+for rok, pred in zip(future_years.flatten(), predictions):
+    print(f"Odhad HDP pro rok {rok}: {pred:.2f} mld. Kč")
+
