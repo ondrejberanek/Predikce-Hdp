@@ -1,0 +1,31 @@
+import pandas as pd
+import statsmodels.api as sm
+
+# 1. Načtení Excelu
+df = pd.read_excel(r"C:\Users\Zdeněk Beránek\Desktop\phytonsoubory\Predikce-HDP\Regrese_data (1).xlsx")
+
+# 2. Podívat se na data
+print(df.head())
+print(df.columns.tolist())
+
+
+# 3. Definice proměnných
+y = df["Hdp"]   # závislá proměnná
+
+# X = všechny prediktory
+X = df[[
+    "Zahraniční obchod",
+    "Průmysl",
+    "Nezaměstnanost",
+    "Inflace",       
+    "Mzda"
+]]
+
+# 4. Přidání konstanty
+X = sm.add_constant(X)
+
+# 5. OLS regrese
+model = sm.OLS(y, X).fit()
+
+# 6. Výstup
+print(model.summary())
