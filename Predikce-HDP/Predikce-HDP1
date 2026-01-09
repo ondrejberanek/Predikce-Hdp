@@ -95,7 +95,7 @@ plt.hist(residuals, bins=10)
 plt.xlabel("Rezidua")
 plt.ylabel("Četnost")
 plt.title("Rozdělení reziduí")
-plt.savefig("histogram_rezidui.png")
+plt.show()
 
 # Durbin-Watson test
 # Testuje autokorelaci reziduí (důležité u časových dat)
