@@ -4,12 +4,11 @@
 
 ### Import knihoven
 
-Načtou se knihovny pandas (pro práci s daty) a statsmodels (pro regresní
-analýzu).
+Načtou se knihovny pandas a statsmodels
 
 ### Načtení dat
 
-Data jsou načtena z Excelového souboru do tabulky DataFrame.
+Data jsou načtena z Excelového souboru.
 
 ### Kontrola dat
 
