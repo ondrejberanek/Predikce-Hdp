@@ -86,7 +86,7 @@ plt.axhline(0)
 plt.xlabel("Predikované hodnoty HDP")
 plt.ylabel("Rezidua")
 plt.title("Rezidua vs. predikce")
-plt.show()
+plt.savefig("rezidua_vs_predikce.png")
 
 # Histogram reziduí
 # Slouží ke kontrole normality reziduí
@@ -95,7 +95,7 @@ plt.hist(residuals, bins=10)
 plt.xlabel("Rezidua")
 plt.ylabel("Četnost")
 plt.title("Rozdělení reziduí")
-plt.show()
+plt.savefig("histogram_rezidui.png")
 
 # Durbin-Watson test
 # Testuje autokorelaci reziduí (důležité u časových dat)
