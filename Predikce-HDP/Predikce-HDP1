@@ -1,31 +1,171 @@
+# Lineární regrese HDP
+
+# =========================
+# 1. Import knihoven
+# =========================
+# pandas – práce s tabulkovými daty
+# statsmodels – statistická regrese (OLS)
+# StandardScaler – standardizace proměnných
+# matplotlib – grafy
+# durbin_watson – test autokorelace reziduí
 import pandas as pd
 import statsmodels.api as sm
+from sklearn.preprocessing import StandardScaler
+import matplotlib.pyplot as plt
+from statsmodels.stats.stattools import durbin_watson
 
 
-df = pd.read_excel(r"C:\Users\Zdeněk Beránek\Desktop\phytonsoubory\Predikce-HDP\Regrese_data (1).xlsx")
+# =========================
+# 2. Načtení dat
+# =========================
+# Načtení dat z Excelového souboru do DataFrame
+df = pd.read_excel(
+    r"C:\Users\Zdeněk Beránek\Desktop\phytonsoubory\Predikce-HDP\Regrese_data (1).xlsx"
+)
 
-
+# Kontrola správného načtení dat
 print(df.head())
 print(df.columns.tolist())
 
 
+# =========================
+# 3. Definice proměnných
+# =========================
+# Závislá proměnná – HDP
+y = df["Hdp"]
 
-y = df["Hdp"]  
-
-
-X = df[[
-    "Zahraniční obchod",
-    "Průmysl",
-    "Nezaměstnanost",
-    "Inflace",       
-    "Mzda"
-]]
-
-
-X = sm.add_constant(X)
-
-
-model = sm.OLS(y, X).fit()
+# Nezávislé proměnné – makroekonomické ukazatele
+X = df[
+    ["Zahraniční obchod",
+     "Průmysl",
+     "Nezaměstnanost",
+     "Inflace",
+     "Mzda"]
+]
 
 
-print(model.summary())
+# =========================
+# 4. Standardizace prediktorů
+# =========================
+# Standardizace vysvětlujících proměnných
+# (nulový průměr, jednotková směrodatná odchylka)
+scaler_main = StandardScaler()
+X_scaled = scaler_main.fit_transform(X)
+
+X_scaled = pd.DataFrame(X_scaled, columns=X.columns)
+X_scaled = sm.add_constant(X_scaled)
+
+model_main = sm.OLS(y, X_scaled).fit()
+
+# Převod zpět na DataFrame a přidání konstanty
+X_scaled = pd.DataFrame(X_scaled, columns=X.columns)
+X_scaled = sm.add_constant(X_scaled)
+
+
+# =========================
+# 5. Lineární regrese (OLS)
+# =========================
+# Vytvoření a natrénování lineárního regresního modelu
+model_main = sm.OLS(y, X_scaled).fit()
+
+# Výpis výsledků regrese
+print(model_main.summary())
+
+
+# =========================
+# 6. Diagnostika reziduí
+# =========================
+# Výpočet reziduí a predikovaných hodnot
+residuals = model_main.resid
+fitted = model_main.fittedvalues
+
+# Graf: rezidua vs. predikované hodnoty
+# Slouží ke kontrole heteroskedasticity
+plt.scatter(fitted, residuals)
+plt.axhline(0)
+plt.xlabel("Predikované hodnoty HDP")
+plt.ylabel("Rezidua")
+plt.title("Rezidua vs. predikce")
+plt.show()
+
+# Histogram reziduí
+# Slouží ke kontrole normality reziduí
+plt.hist(residuals, bins=10)
+plt.xlabel("Rezidua")
+plt.ylabel("Četnost")
+plt.title("Rozdělení reziduí")
+plt.show()
+
+# Durbin-Watson test
+# Testuje autokorelaci reziduí (důležité u časových dat)
+dw = durbin_watson(residuals)
+print("Durbin-Watson:", dw)
+
+
+# =========================
+# 7. Časová regrese (trend)
+# =========================
+
+# Vytvoření trendové proměnné
+df["trend"] = range(len(df))
+
+# Závislá proměnná
+y_ts = df["Hdp"]
+
+# Nezávislé proměnné včetně trendu
+X_ts = df[
+    ["Zahraniční obchod",
+     "Průmysl",
+     "Nezaměstnanost",
+     "Inflace",
+     "Mzda",
+     "trend"]
+]
+
+# Standardizace pro časový model
+scaler_ts = StandardScaler()
+X_ts_scaled = scaler_ts.fit_transform(X_ts)
+
+X_ts_scaled = pd.DataFrame(X_ts_scaled, columns=X_ts.columns)
+X_ts_scaled = sm.add_constant(X_ts_scaled)
+
+# OLS regrese s trendem
+model_ts = sm.OLS(y_ts, X_ts_scaled).fit()
+print(model_ts.summary())
+
+
+
+# =========================
+# 8. Predikce HDP (nová data)
+# =========================
+
+future_data = pd.DataFrame({
+    "Zahraniční obchod": [5.0],
+    "Průmysl": [3.0],
+    "Nezaměstnanost": [4.2],
+    "Inflace": [2.8],
+    "Mzda": [4.2]
+})
+
+future_data_scaled = scaler_main.transform(future_data)
+future_data_scaled = pd.DataFrame(
+    future_data_scaled,
+    columns=future_data.columns
+)
+
+
+future_data_scaled = sm.add_constant(
+    future_data_scaled,
+    has_constant="add"
+)
+
+predicted_hdp = model_main.predict(future_data_scaled)
+
+print("===================================")
+print("VÝSLEDEK PREDIKCE HDP")
+print("===================================")
+print("Zadané hodnoty prediktorů:")
+print(future_data)
+print()
+print("Nárůst HDP v %:", round(predicted_hdp.iloc[0], 2))
+print("===================================")
