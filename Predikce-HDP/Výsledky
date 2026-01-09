@@ -1,17 +1,15 @@
-## Výstup z terminálu
+Výstup z terminálu
 
-### Načtení dat
-```
+Načtení dat
+
     Rok       Hdp  Zahraniční obchod  Průmysl  Nezaměstnanost  Inflace  Mzda
 0  2001  2.917240           9.426906     11.3             8.1      4.7   3.9
 1  2002  1.513443           0.896110     -0.4             7.3      1.8   6.1
 2  2003  3.300836           8.841053      3.3             7.8      0.1   5.7
 3  2004  4.736346          29.732160     15.6             8.3      2.8   3.4
 4  2005  6.375039          18.349075      6.2             7.9      1.9   3.0
-```
 
-### Základní model - OLS Regression Results
-```
+Základní model - OLS Regression Results
                             OLS Regression Results
 ==============================================================================
 Dep. Variable:                    Hdp   R-squared:                       0.737
@@ -38,10 +36,9 @@ Prob(Omnibus):                  0.225   Jarque-Bera (JB):                1.519
 Skew:                          -0.579   Prob(JB):                        0.468
 Kurtosis:                       3.495   Cond. No.                         4.40
 ==============================================================================
-```
 
-### Model s časovým trendem
-```
+Model s časovým trendem
+
                             OLS Regression Results
 ==============================================================================
 Dep. Variable:                    Hdp   R-squared:                       0.763
@@ -69,15 +66,11 @@ Prob(Omnibus):                  0.093   Jarque-Bera (JB):                2.759
 Skew:                          -0.640   Prob(JB):                        0.252
 Kurtosis:                       4.115   Cond. No.                         12.1
 ==============================================================================
-```
 
-### Durbin-Watson Test
-```
+Durbin-Watson Test
 Durbin-Watson: 2.3846131902107457
-```
 
-### Predikce HDP
-```
+Predikce HDP
 ===================================
 VÝSLEDEK PREDIKCE HDP
 ===================================
@@ -87,3 +80,4 @@ Zadané hodnoty prediktorů:
 
 Nárůst HDP v %: 2.83
 ===================================
+
