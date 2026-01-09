@@ -90,6 +90,7 @@ plt.show()
 
 # Histogram reziduí
 # Slouží ke kontrole normality reziduí
+plt.figure()  
 plt.hist(residuals, bins=10)
 plt.xlabel("Rezidua")
 plt.ylabel("Četnost")
