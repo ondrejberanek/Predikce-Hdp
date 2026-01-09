@@ -1,130 +1,72 @@
-# Lineární regrese HDP
+# Výsledky (výpis z terminálu)
 
-## Jednotlivé kroky v kódu
+ Rok       Hdp  Zahraniční obchod  Průmysl  Nezaměstnanost  Inflace  Mzda
+0  2001  2.917240           9.426906     11.3             8.1      4.7   3.9
+1  2002  1.513443           0.896110     -0.4             7.3      1.8   6.1
+2  2003  3.300836           8.841053      3.3             7.8      0.1   5.7
+3  2004  4.736346          29.732160     15.6             8.3      2.8   3.4
+4  2005  6.375039          18.349075      6.2             7.9      1.9   3.0
+['Rok', 'Hdp', 'Zahraniční obchod', 'Průmysl', 'Nezaměstnanost', 'Inflace', 'Mzda']
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:                    Hdp   R-squared:                       0.737
+Model:                            OLS   Adj. R-squared:                  0.660
+Method:                 Least Squares   F-statistic:                     9.544
+Date:                Fri, 09 Jan 2026   Prob (F-statistic):           0.000178
+Time:                        10:34:14   Log-Likelihood:                -42.275
+No. Observations:                  23   AIC:                             96.55
+Df Residuals:                      17   BIC:                             103.4
+Df Model:                           5
+Covariance Type:            nonrobust
+=====================================================================================
+                        coef    std err          t      P>|t|      [0.025      0.975]
+-------------------------------------------------------------------------------------
+const                 2.4094      0.369      6.533      0.000       1.631       3.188
+Zahraniční obchod     1.6297      0.815      2.000      0.062      -0.090       3.349
+Průmysl               1.0227      0.762      1.343      0.197      -0.584       2.630
+Nezaměstnanost       -0.6890      0.516     -1.336      0.199      -1.777       0.399
+Inflace               0.1779      0.687      0.259      0.799      -1.272       1.628
+Mzda                  1.0878      0.615      1.768      0.095      -0.210       2.386
+==============================================================================
+Omnibus:                        2.988   Durbin-Watson:                   2.385
+Prob(Omnibus):                  0.225   Jarque-Bera (JB):                1.519
+Skew:                          -0.579   Prob(JB):                        0.468
+Kurtosis:                       3.495   Cond. No.                         4.40
+==============================================================================
 
-### Import knihoven
+Durbin-Watson: 2.3846131902107457
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:                    Hdp   R-squared:                       0.763
+Model:                            OLS   Adj. R-squared:                  0.674
+Method:                 Least Squares   F-statistic:                     8.575
+Date:                Fri, 09 Jan 2026   Prob (F-statistic):           0.000281
+Time:                        10:34:15   Log-Likelihood:                -41.102
+No. Observations:                  23   AIC:                             96.20
+Df Residuals:                      16   BIC:                             104.2
+Df Model:                           6
+Covariance Type:            nonrobust
+=====================================================================================
+                        coef    std err          t      P>|t|      [0.025      0.975]
+-------------------------------------------------------------------------------------
+const                 2.4094      0.361      6.670      0.000       1.644       3.175
+Zahraniční obchod     1.7780      0.806      2.206      0.042       0.069       3.487
+Průmysl               1.0415      0.746      1.396      0.182      -0.541       2.624
+Nezaměstnanost       -2.6777      1.599     -1.674      0.113      -6.068       0.712
+Inflace              -0.9467      1.091     -0.868      0.398      -3.259       1.365
+Mzda                 -0.2680      1.197     -0.224      0.826      -2.806       2.270
+trend                -1.9812      1.512     -1.311      0.208      -5.186       1.223
+==============================================================================
+Omnibus:                        4.760   Durbin-Watson:                   2.409
+Prob(Omnibus):                  0.093   Jarque-Bera (JB):                2.759
+Skew:                          -0.640   Prob(JB):                        0.252
+Kurtosis:                       4.115   Cond. No.                         12.1
+===================================
+VÝSLEDEK PREDIKCE HDP
+===================================
+Zadané hodnoty prediktorů:
+   Zahraniční obchod  Průmysl  Nezaměstnanost  Inflace  Mzda
+0                5.0      3.0             4.2      2.8   4.2
 
-Načtou se knihovny pandas a statsmodels
-
-### Načtení dat
-
-Data jsou načtena z Excelového souboru.
-
-### Kontrola dat
-
-Vypíší se první řádky tabulky a názvy sloupců, aby bylo vidět, zda se
-data načetla správně.
-
-### Definice cílové proměnné
-
-Proměnná **Hdp** je uložena jako výstupní (y), kterou se model snaží
-vysvětlit.
-
-### Výběr vstupních proměnných
-
-Z tabulky se vyberou sloupce, které budou použity jako prediktory (X):\
-zahraniční obchod, průmysl, nezaměstnanost, inflace a mzda.
-
-### Přidání konstanty
-
-Do modelu se přidá konstanta, aby regresní rovnice měla volnou
-konstantní složku.
-
-### Vytvoření a natrénování modelu
-
-Pomocí OLS se vytvoří a spočítá lineární regresní model.
-
-### Výpis výsledků
-
-Funkce **summary()** vypíše kompletní výsledky modelu.
-
-------------------------------------------------------------------------
-
-## Předběžná analýza výsledků regrese
-
-### R-squared
-
-Hodnota **R-squared = 0.737**\
-Model vysvětluje přibližně 73,7 % variability HDP.
-
-**Adjusted R-squared = 0.660**\
-Model má solidní, ale ne perfektní vysvětlující schopnost.
-
-### F-statistic
-
-**F-statistic = 9.544**\
-**Prob(F-statistic) = 0.000178**\
-Model je jako celek statisticky významný.
-
-------------------------------------------------------------------------
-
-## Koeficienty jednotlivých proměnných
-
-### Zahraniční obchod
-
--   Koeficient: **0.2023**\
--   P-hodnota: **0.062**\
-    Mírně zvyšuje HDP, nejsilnější efekt ze všech proměnných.
-
-### Průmysl
-
--   Koeficient: **0.1477**\
--   P-hodnota: **0.197**
-
-### Nezaměstnanost
-
--   Koeficient: **-0.3142**\
--   P-hodnota: **0.199**
-
-### Inflace
-
--   Koeficient: **0.0528**\
--   P-hodnota: **0.799**
-
-### Mzda
-
--   Koeficient: **0.3231**\
--   P-hodnota: **0.095**
-
-### Konstanta
-
--   Koeficient: **1.188**
-
-------------------------------------------------------------------------
-
-## Výsledky regrese (výpis z terminálu)
-
-    Rok Hdp Zahraniční obchod Průmysl Nezaměstnanost Inflace Mzda
-    0 2001 2.917240 9.426906 11.3 8.1 4.7 3.9
-    1 2002 1.513443 0.896110 -0.4 7.3 1.8 6.1
-    2 2003 3.300836 8.841053 3.3 7.8 0.1 5.7
-    3 2004 4.736346 29.732160 15.6 8.3 2.8 3.4
-    4 2005 6.375039 18.349075 6.2 7.9 1.9 3.0
-    ['Rok', 'Hdp', 'Zahraniční obchod', 'Průmysl', 'Nezaměstnanost', 'Inflace', 'Mzda']
-
-    OLS Regression Results
-    ==============================================================================
-    Dep. Variable: Hdp                R-squared: 0.737
-    Model: OLS                      Adj. R-squared: 0.660
-    Method: Least Squares            F-statistic: 9.544
-    Date: Fri, 12 Dec 2025           Prob (F-statistic): 0.000178
-    Time: 17:03:17                   Log-Likelihood: -42.275
-    No. Observations: 23            AIC: 96.55
-    Df Residuals: 17                BIC: 103.4
-    Df Model: 5
-    Covariance Type: nonrobust
-    =====================================================================================
-                              coef    std err          t      P>|t|      [0.025      0.975]
-    -------------------------------------------------------------------------------------
-    const                  1.1880      1.756      0.676      0.508      -2.517       4.893
-    Zahraniční obchod      0.2023      0.101      2.000      0.062      -0.011       0.416
-    Průmysl                0.1477      0.110      1.343      0.197      -0.084       0.380
-    Nezaměstnanost        -0.3142      0.235     -1.336      0.199      -0.810       0.182
-    Inflace                0.0528      0.204      0.259      0.799      -0.378       0.483
-    Mzda                   0.3231      0.183      1.768      0.095      -0.062       0.709
-    ==============================================================================
-    Omnibus: 2.988   Durbin-Watson: 2.385
-    Prob(Omnibus): 0.225   Jarque-Bera (JB): 1.519
-    Skew: -0.579   Prob(JB): 0.468
-    Kurtosis: 3.495   Cond. No. 67.3
-    ==============================================================================
+Nárůst HDP v %: 2.83
+===================================
